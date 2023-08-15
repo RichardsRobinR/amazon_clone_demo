@@ -1,8 +1,11 @@
 import 'package:amazon_clone_demo/view/components/StarRating.dart';
 import 'package:amazon_clone_demo/view/components/custom_Carousel.dart';
 import 'package:amazon_clone_demo/view/components/custom_SearchBar.dart';
-import 'package:flutter/material.dart';
+import 'package:amazon_clone_demo/view/home/ItemList.dart';
+import 'package:amazon_clone_demo/view_model/itemListViewModel.dart';
 
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeBody extends StatefulWidget {
   const HomeBody({Key? key}) : super(key: key);
@@ -23,10 +26,19 @@ class _HomeBodyState extends State<HomeBody> {
     "https://picsum.photos/250?image=9",
     "https://picsum.photos/250?image=9",
   ];
+  late ItemListViewModel itemListViewModel;
+
+  @override
+  void initState() {
+
+    super.initState();
+    //itemListViewModel = context.watch<ItemListViewModel>();
+  }
 
   @override
   Widget build(BuildContext context) {
     print("hello");
+    itemListViewModel = context.watch<ItemListViewModel>();
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
@@ -34,53 +46,13 @@ class _HomeBodyState extends State<HomeBody> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           CustomSearchBar(),
-
           CarouselDemo(),
-          // Container(
-          //     height: 350,
-          //     width: 350,
-          //     color: Colors.red,
-          //    ),
-          SizedBox(height: 20),
-          Text("Today's Deals"),
-          SizedBox(height: 20),
-          SizedBox(
-            height: 300,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-                itemCount: imageUrls.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 16, 6, 16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                          width: 200,
-                          height: 200,
-                          // width: 500,
-                          // margin: EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Image.network(imageUrls[index],
-
-                          ),
-                        ),
-                        Container(
-                          width: 150,
-                          // padding: EdgeInsets.all(8.0),
-                          child: const Text("laptoppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-                            style: TextStyle(fontSize: 18),
-                            overflow: TextOverflow.ellipsis,
-                            softWrap: false,
-                            maxLines: 1,),
-                        ),
-                        StarRating(rating: 4.5,),
-                      ],
-                    ),
-                  );
-                }
-            ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+            child: Text("Today's Deals",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           ),
+          ItemList(imageUrls: imageUrls,itemListViewModel: itemListViewModel,)
         ],
       ),
     );

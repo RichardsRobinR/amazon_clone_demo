@@ -1,5 +1,11 @@
 
+import 'package:amazon_clone_demo/view/appBar/custom_appbar.dart';
+import 'package:amazon_clone_demo/view/cartPage/CartScreen.dart';
+import 'package:amazon_clone_demo/view/components/custom_nav_bar.dart';
+import 'package:amazon_clone_demo/view_model/itemListViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 
 import 'package:flutter/services.dart';
 
@@ -15,13 +21,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Amazon',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ItemListViewModel()),
+      ],
+      child: MaterialApp(
+        title: 'Amazon',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const CustomNavBar(),
       ),
-      home: const HomeScreen(),
     );
   }
 }

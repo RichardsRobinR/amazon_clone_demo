@@ -55,7 +55,6 @@ class CarouselDemo extends StatelessWidget {
           autoPlay: true,
           aspectRatio: 2.0,
           enlargeCenterPage: true,
-
         ),
         items: imageSliders,
       ),
